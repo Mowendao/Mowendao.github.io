@@ -1,0 +1,108 @@
+# Hexo Configuration
+# 独游手记 —— 源工程配置
+# Docs: https://hexo.io/docs/configuration.html
+
+# Site
+title: 独游手记
+subtitle: '独立游戏 · BGM · 插画与像素'
+description: '一个独立游戏开发者的成长记录：开发日志、BGM 制作、插画与像素美术练习。只记录自己做完的东西。'
+keywords: 独立游戏, 游戏开发, 开发日志, BGM, 音乐制作, 像素美术, 二次元插画
+author: Mowendao
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+# URL
+url: https://mowendao.github.io
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :year-:month-:day-:title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude:
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# Home page setting
+index_generator:
+  path: ''
+  per_page: 8
+  order_by: -date
+
+# Category & Tag
+default_category: 未分类
+# 分类名用中文（文章里显示中文），URL 用英文 slug（链接干净）。
+# 写文章时 categories 填左边的中文，地址栏就是右边的英文。
+category_map:
+  开发日志: devlog
+  BGM: music
+  美术: art
+  笔记: notes
+tag_map:
+
+# Metadata elements
+meta_generator: true
+
+# Date / Time format
+date_format: YYYY-MM-DD
+time_format: HH:mm
+# 用 date 而不是 mtime：CI 里 clone 出来的文件时间戳全是构建时刻，
+# 用 mtime 会让每篇文章都显示「最后更新于今天」。
+updated_option: date
+
+# Pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+include:
+exclude:
+ignore:
+
+# Extensions
+theme: next
+
+# Feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  content: true
+  hub:
+
+# Deployment
+# 本站用 GitHub Actions 发布（见 .github/workflows/pages.yml），
+# 这里留空，避免误用 hexo deploy 把产物推回 main 分支。
+deploy:
+  type: ''

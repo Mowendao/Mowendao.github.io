@@ -1,0 +1,13 @@
+# 统一换行符，避免 Windows 本地把 CRLF 提交进仓库
+* text=auto eol=lf
+
+# 二进制资源不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.mp3 binary
+*.wav binary
+*.aseprite binary

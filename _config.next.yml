@@ -1,0 +1,144 @@
+# NexT 主题覆盖配置（只写与默认值不同的项）
+# 完整默认值见 node_modules/hexo-theme-next/_config.yml
+# 文档：https://theme-next.js.org/docs/theme-settings/
+
+# ---------------------------------------------------------------
+# Scheme / Dark mode
+# ---------------------------------------------------------------
+scheme: Muse
+
+# 跟随系统的深色偏好；深色配色见 codeblock.theme.dark
+darkmode: true
+
+# ---------------------------------------------------------------
+# Menu
+# 中文直接作为 key：NexT 找不到翻译时，就把 key 原样显示成菜单文字。
+# 分类 URL 用英文 slug，菜单文字用中文，两边都干净。
+# ---------------------------------------------------------------
+# 注意：Hexo 只为「至少有一篇文章」的分类生成 /categories/<slug>/ 页面。
+# 现在四个分类里只有「笔记」有文章，直接挂 /categories/devlog/ 会 404，
+# 所以先挂总分类页。等分类下有第一篇真文章后，把下面几行换成注释里的写法。
+menu:
+  首页: / || fa fa-home
+  分类: /categories/ || fa fa-layer-group
+  归档: /archives/ || fa fa-archive
+  现在: /now/ || fa fa-compass
+  关于: /about/ || fa fa-user
+  # 开发日志: /categories/devlog/ || fa fa-gamepad
+  # BGM: /categories/music/ || fa fa-headphones
+  # 美术: /categories/art/ || fa fa-palette
+  # 笔记: /categories/notes/ || fa fa-lightbulb-o
+
+menu_settings:
+  icons: true
+  badges: false
+
+favicon:
+  small: /images/favicon-16x16.png
+  medium: /images/favicon-32x32.png
+  apple_touch_icon: /images/apple-touch-icon.png
+  safari_pinned_tab:
+
+# ---------------------------------------------------------------
+# Sidebar
+# ---------------------------------------------------------------
+sidebar:
+  position: left
+  display: post
+  padding: 18
+  offset: 12
+
+avatar:
+  url: /images/avatar.png
+  rounded: true
+  rotated: false
+
+site_state: true
+
+social:
+  GitHub: https://github.com/Mowendao || fab fa-github
+  RSS: /atom.xml || fa fa-rss
+
+social_icons:
+  enable: true
+  icons_only: false
+  transition: false
+
+# ---------------------------------------------------------------
+# Post
+# ---------------------------------------------------------------
+# 用 front-matter 的 description 当摘要；没写就取第一段
+excerpt_description: true
+read_more_btn: true
+
+post_meta:
+  item_text: true
+  created_at: true
+  # 关掉「更新于」，避免 git clone 的时间戳污染
+  updated_at:
+    enable: false
+    another_day: true
+  categories: true
+
+toc:
+  enable: true
+  number: false
+  wrap: true
+  expand_all: false
+  max_depth: 3
+
+post_navigation: left
+
+# ---------------------------------------------------------------
+# Footer
+# ---------------------------------------------------------------
+footer:
+  since: 2026
+  icon:
+    name: fa fa-pen-nib
+    animated: false
+    color: '#7c7c7c'
+  powered: true
+  copyright:
+  beian:
+    enable: false
+
+# ---------------------------------------------------------------
+# Code / Reading
+# ---------------------------------------------------------------
+codeblock:
+  theme:
+    light: default
+    dark: stackoverflow-dark
+  copy_button:
+    enable: true
+    style: flat
+  fold:
+    enable: false
+    height: 500
+  language: true
+
+back2top:
+  enable: true
+  sidebar: false
+  scrollpercent: true
+
+reading_progress:
+  enable: true
+  start_at: left
+  position: top
+  reversed: false
+  color: '#4f8cff'
+  height: 2px
+
+# 图片点开放大（美术文章看细节用）
+mediumzoom: true
+
+# ---------------------------------------------------------------
+# Search（需要 hexo-generator-searchdb）
+# ---------------------------------------------------------------
+local_search:
+  enable: true
+  top_n_per_article: 1
+  unescape: false
+  preload: false
