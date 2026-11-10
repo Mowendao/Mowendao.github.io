@@ -107,11 +107,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* 防止侧栏 / 目录在窄屏把文档撑宽，导致内容整体左移被裁 */
-html,
-body {
-  overflow-x: hidden;
-}
+/* 注意：不要在 html/body 上写 overflow，否则 position: sticky 的顶栏会失效 */
 
 ::selection {
   background: var(--selection-bg);
@@ -133,30 +129,49 @@ input:focus-visible {
 }
 
 /* ------------------------------------------------------------
-   3. 页头：标题 / 副标题 / 导航
+   3. 顶栏：品牌在左、导航在右，滚动时吸附在顶部
+   结构：<header> 直接包含 .site-brand-container 与 <nav class="site-nav">，
+   没有内层容器，所以用左右 padding 把内容对齐到 760 正文列。
    ------------------------------------------------------------ */
-.header {
-  border-bottom: 1px solid var(--line-color);
+header.header {
   background: var(--body-bg-color);
-}
-
-.header-inner {
-  padding: 34px 0 0;
+  border-bottom: 1px solid var(--line-color);
+  box-sizing: border-box;
+  left: 0;
+  margin: 0;
+  max-width: none;
+  padding: 10px 16px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 60;
 }
 
 .site-brand-container {
-  padding-bottom: 4px;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+}
+
+.site-meta {
+  text-align: left;
 }
 
 .brand {
   padding: 0;
 }
 
+/* Muse 默认在标题两侧画横线，这里不要 */
+.brand .logo-line {
+  display: none;
+}
+
 .site-title {
   background: transparent;
   color: var(--brand-color);
   font-family: var(--font-sans);
-  font-size: 26px;
+  font-size: 19px;
   font-weight: 600;
   letter-spacing: 0.06em;
   line-height: 1.4;
@@ -165,25 +180,25 @@ input:focus-visible {
 
 .site-subtitle {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.04em;
-  margin: 8px 0 0;
+  margin: 2px 0 0;
 }
 
-/* 导航：纯文字，去掉图标背景与胶囊 */
 .site-nav {
-  margin-top: 22px;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .menu {
   display: flex;
-  justify-content: center;
-  gap: 4px;
+  flex-wrap: nowrap;
+  gap: 2px;
+  justify-content: flex-end;
 }
 
 .menu .menu-item {
-  margin: 0 2px;
+  margin: 0;
 }
 
 .menu .menu-item a,
@@ -191,10 +206,11 @@ input:focus-visible {
   color: var(--muted);
   font-size: 14px;
   letter-spacing: 0.04em;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-bottom: 1px solid transparent;
   border-radius: 0;
   background: transparent;
+  white-space: nowrap;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
@@ -215,12 +231,38 @@ input:focus-visible {
   display: none;
 }
 
+/* 桌面端：一行，品牌左 + 导航右；副标题让位，定位语交给首页导览条 */
+@media (min-width: 768px) {
+  header.header {
+    align-items: center;
+    display: flex;
+    gap: 32px;
+    height: 60px;
+    justify-content: space-between;
+    padding: 0 max(24px, calc((100% - 760px) / 2));
+  }
+
+  .site-brand-container {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+
+  .site-subtitle {
+    display: none;
+  }
+
+  .site-nav {
+    flex: 0 1 auto;
+  }
+}
+
 /* ------------------------------------------------------------
    4. 主内容容器
    ------------------------------------------------------------ */
 .main-inner {
   max-width: 760px;
-  padding: 48px 0 64px;
+  /* 顶部 72px：给固定顶栏让位（顶栏 60px + 12px 间距） */
+  padding: 72px 0 64px;
 }
 
 /* 首页与内页统一行宽，避免不同页面来回变宽 */
@@ -532,6 +574,18 @@ input:focus-visible {
   opacity: 1;
 }
 
+/* 顶栏吸附后，跳转锚点要留出让位空间，标题不被盖住 */
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  scroll-margin-top: 76px;
+}
+
+/* 阅读进度条压在顶栏之上 */
+.reading-progress-bar {
+  z-index: 100;
+}
+
 /* ------------------------------------------------------------
    7. 文章页：标题区、目录、进度
    ------------------------------------------------------------ */
@@ -693,6 +747,13 @@ input:focus-visible {
   box-shadow: none;
 }
 
+@media (min-width: 768px) {
+  .sidebar {
+    height: calc(100vh - 61px);
+    top: 61px;
+  }
+}
+
 .sidebar-inner {
   padding: 24px 22px 40px;
 }
@@ -838,22 +899,31 @@ input:focus-visible {
    ------------------------------------------------------------ */
 @media (max-width: 767px) {
   .header-inner {
-    padding: 22px 0 0;
+    padding: 10px 16px;
+  }
+
+  .site-meta {
+    text-align: left;
   }
 
   .site-title {
-    font-size: 21px;
+    font-size: 17px;
   }
 
   .site-subtitle {
-    font-size: 12px;
+    display: none;
+  }
+
+  /* 窄屏搜索收进菜单里，顶栏只留品牌 + 展开按钮 */
+  .site-nav-search {
+    display: none;
   }
 
   .menu {
     justify-content: flex-start;
     overflow-x: auto;
     gap: 0;
-    padding: 0 4px;
+    padding: 0;
   }
 
   .menu .menu-item a,
@@ -863,7 +933,7 @@ input:focus-visible {
   }
 
   .main-inner {
-    padding: 28px 18px 40px;
+    padding: 64px 18px 40px;
   }
 
   .posts-expand .post-title,
@@ -883,8 +953,7 @@ input:focus-visible {
     overflow-x: auto;
     white-space: nowrap;
   }
-
-  .category-all .category-list {
+  .category-all-page .category-list {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 }
