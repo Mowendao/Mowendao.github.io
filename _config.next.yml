@@ -7,30 +7,31 @@
 # ---------------------------------------------------------------
 scheme: Muse
 
-# 跟随系统的深色偏好；深色配色见 codeblock.theme.dark
+# 跟随系统的深色偏好
 darkmode: true
 
 # ---------------------------------------------------------------
 # Menu
 # 中文直接作为 key：NexT 找不到翻译时，就把 key 原样显示成菜单文字。
-# 分类 URL 用英文 slug，菜单文字用中文，两边都干净。
-# ---------------------------------------------------------------
+#
 # 注意：Hexo 只为「至少有一篇文章」的分类生成 /categories/<slug>/ 页面。
 # 现在四个分类里只有「笔记」有文章，直接挂 /categories/devlog/ 会 404，
-# 所以先挂总分类页。等分类下有第一篇真文章后，把下面几行换成注释里的写法。
+# 所以先挂总分类页。等分类下有第一篇真文章后，把注释里的写法换上来。
+# ---------------------------------------------------------------
 menu:
   首页: / || fa fa-home
   分类: /categories/ || fa fa-layer-group
   归档: /archives/ || fa fa-archive
   现在: /now/ || fa fa-compass
   关于: /about/ || fa fa-user
+  GitHub: https://github.com/Mowendao || fab fa-github
   # 开发日志: /categories/devlog/ || fa fa-gamepad
   # BGM: /categories/music/ || fa fa-headphones
   # 美术: /categories/art/ || fa fa-palette
   # 笔记: /categories/notes/ || fa fa-lightbulb-o
 
 menu_settings:
-  icons: true
+  icons: false
   badges: false
 
 favicon:
@@ -44,6 +45,7 @@ favicon:
 # ---------------------------------------------------------------
 sidebar:
   position: left
+  # post：只在文章页展开（首页保持干净的列表）
   display: post
   padding: 18
   offset: 12
@@ -67,14 +69,12 @@ social_icons:
 # ---------------------------------------------------------------
 # Post
 # ---------------------------------------------------------------
-# 用 front-matter 的 description 当摘要；没写就取第一段
 excerpt_description: true
 read_more_btn: true
 
 post_meta:
   item_text: true
   created_at: true
-  # 关掉「更新于」，避免 git clone 的时间戳污染
   updated_at:
     enable: false
     another_day: true
@@ -97,7 +97,7 @@ footer:
   icon:
     name: fa fa-pen-nib
     animated: false
-    color: '#7c7c7c'
+    color: '#8f4526'
   powered: true
   copyright:
   beian:
@@ -116,19 +116,19 @@ codeblock:
   fold:
     enable: false
     height: 500
-  language: true
+  language: false
 
 back2top:
   enable: true
   sidebar: false
-  scrollpercent: true
+  scrollpercent: false
 
 reading_progress:
   enable: true
   start_at: left
   position: top
   reversed: false
-  color: '#4f8cff'
+  color: '#8f4526'
   height: 2px
 
 # 图片点开放大（美术文章看细节用）
@@ -142,3 +142,11 @@ local_search:
   top_n_per_article: 1
   unescape: false
   preload: false
+
+# 关掉入场动画：内容立即出现，不用等淡入，也不依赖 JS
+motion:
+  enable: false
+  async: false
+
+# 自定义样式层见 source/css/custom.css，
+# 由 scripts/inline-custom-css.js 内联进页面（不走主题的 custom_file_path）。
