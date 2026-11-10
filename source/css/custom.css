@@ -811,7 +811,7 @@ input:focus-visible {
   color: var(--text-color);
 }
 
-/* 侧栏开关：做成不抢眼的小方块 */
+/* 侧栏开关：桌面端不需要（文章页侧栏本来就展开），窄屏才显示 */
 .sidebar-toggle {
   background: transparent;
   border: 1px solid var(--line-color);
@@ -823,8 +823,14 @@ input:focus-visible {
   background: var(--card-bg-color);
 }
 
-.sidebar-toggle .toggle-line {
+.toggle .toggle-line {
   background: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .sidebar-toggle {
+    display: none;
+  }
 }
 
 /* ------------------------------------------------------------
